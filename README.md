@@ -2,11 +2,11 @@
 
 在基于递归构建光追（path tracing）的基础上，加入了BVH和SVH加速结构
   没有加速结构，cpu模拟渲染近三小时，180分钟左右
-  ![原始](image_origin)
+  ![原始](image_origin.png)
   bvh之后： 运行时间: 5078007 毫秒   84.63分钟
-  ![bvh](image_rayTracing1)
+  ![bvh](image_rayTracing1.png)
   sah之后：运行时间： 4964460 毫秒   82.74分钟
-  ![sah](image_rayTracing2)
+  ![sah](image_rayTracing2.png)
 ray-tracing mat材质
 反射模糊
 模糊球体尺寸与反射效果的关系
