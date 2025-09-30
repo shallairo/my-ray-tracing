@@ -1,4 +1,48 @@
 # my-ray-tracing
+ray-tracing mat材质
+一般反射
+
+
+反射模糊
+
+模糊球体尺寸与反射效果的关系
+"The bigger the fuzz sphere, the fuzzier the reflections will be." "模糊球体半径越大，反射效果越模糊。"
+原理：模糊球体半径定义了反射方向的随机扰动范围，半径增大导致反射光线方向分散性增强
+1. 。
+模糊参数的物理意义
+"This suggests adding a fuzziness parameter that is just the radius of the sphere (so zero is no perturbation)."
+"因此可引入模糊度参数，即球体半径（半径=0表示无扰动）。"
+设计逻辑：该参数直接映射到着色器的浮点变量，零值关闭模糊效果
+2. 。
+掠射光线的异常处理
+"The catch is that for big spheres or grazing rays, we may scatter below the surface. We can just have the surface absorb those."
+"技术难点在于：过大球体或掠射光线可能导致散射至表面下方。解决方案是令表面直接吸收此类光线。"
+原因：大半径扰动或低角度入射时，随机偏移可能使反射向量指向物体内部（即dot(normal, scattered_ray) < 0），此时强制返回黑色或终止光线追踪
+3. 。
+反射向量的归一化必要性
+"Also note that in order for the fuzz sphere to make sense, it needs to be consistently scaled compared to the reflection vector, which can vary in length arbitrarily."
+→ "需注意：模糊球体的比例需与反射向量一致，但反射向量长度可能任意变化。"
+问题根源：未归一化的反射向量长度不固定（如镜面反射向量长度为入射向量长度），直接叠加球体扰动会导致缩放失真
+4. 。
+5. 解决方案：向量归一化
+"To address this, we need to normalize the reflected ray."
+→ "因此必须对反射向量进行归一化处理。"
+实现方式：计算反射方向后立即执行 reflected_ray = normalize(reflected_ray)，确保扰动球体在单位向量空间生效
+折射材质  玻璃
+
+在归一化后R的值一般为1
+进一步完善折射定律
+注意理解反射率R，本质上其实就是概率，除开正常的折射定律，加入概率的因素模拟正常扰动
+
+是否需要舍弃角度过于大的散射射线
+1没有   2有
+
+
+ray-tracing gamma矫正
+在线性空间下，整体颜色偏暗，人眼天生对暗色敏感，为了更好符合人眼的颜色观测，将线性空间转换到gamma空间
+通常计算得到开根号即可
+
+
 在基于递归构建光追（path tracing）的基础上，加入了BVH和SVH加速结构
   没有加速结构，cpu模拟渲染近三小时，180分钟左右
 
