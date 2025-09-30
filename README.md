@@ -4,7 +4,7 @@
   没有加速结构，cpu模拟渲染近三小时，180分钟左右
   ![原始](image_origin.png)
   bvh之后： 运行时间: 5078007 毫秒   84.63分钟
-  ![bvh](image_rayTracing1.png)
+  ![bvh](iamge_rayTracing1.png)
   sah之后：运行时间： 4964460 毫秒   82.74分钟
   ![sah](image_rayTracing2.png)
 ray-tracing mat材质
