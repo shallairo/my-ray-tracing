@@ -24,6 +24,7 @@ ray-tracing mat材质
 实现方式：计算反射方向后立即执行 reflected_ray = normalize(reflected_ray)，确保扰动球体在单位向量空间生效
 折射材质  玻璃
 ![snell定律推导](image.png)
+
 在归一化后R的值一般为1
 进一步完善折射定律
 注意理解反射率R，本质上其实就是概率，除开正常的折射定律，加入概率的因素模拟正常扰动
